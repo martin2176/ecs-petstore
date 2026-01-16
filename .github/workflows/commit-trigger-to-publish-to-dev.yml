@@ -1,5 +1,5 @@
-name: Commit-Trigger-To-Publish-to-Dev-APIM
-run-name: Commit-Trigger-To-Publish-to-Dev-APIM
+name: Commit-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
+run-name: Commit-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
 #author martin francis kallukalam
 #publish to dev apim instance from <developer> branch when a push/commit event happens on developer branch
 on:
