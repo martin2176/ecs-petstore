@@ -47,7 +47,7 @@ jobs:
          echo "publish artifacts choice: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE}}"
          echo "branch to publish artifacts from: ${{ env.BRANCH_TO_DEPLOY_FROM }}"
     Deploy-to-Dev-APIM-Instance:
-     #if: ${{ !always() }}
+     if: ${{ !always() }}
      name: Deploy-to-Dev-APIM-Instance
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/apiops/.github/workflows/publish-into-environment.yaml@main
