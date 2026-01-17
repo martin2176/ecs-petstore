@@ -52,10 +52,3 @@ jobs:
      #if: ${{ !always() }}
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yaml@main
-     with:
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
-      API_MANAGEMENT_ENVIRONMENT: dev
-      VARIABLE1: ${{ vars.VARIABLE1 }}
-     secrets:
-      inherit
