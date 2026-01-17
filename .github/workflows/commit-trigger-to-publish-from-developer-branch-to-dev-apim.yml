@@ -14,7 +14,7 @@ on:
      - 'apimartifacts/**'   
 
 env:
-  APIOPS_REPO: 'martin2176/ecs-apim-workflows'
+  APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   PUBLISH_ARTIFACTS_CHOICE: "publish-artifacts-in-last-commit"
   BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
   REFTOCHECKOUTFOR_ARTIFACTS: "last commit"
@@ -49,6 +49,7 @@ jobs:
     Deploy-to-Dev-APIM-Instance:
      if: ${{ !always() }}
      name: Deploy-to-Dev-APIM-Instance
+     runs-on: ubuntu-latest
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/apiops/.github/workflows/publish-into-environment.yaml@main
      with:
@@ -58,4 +59,20 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
+     secrets: inherit
+    Call-Deploy-to-Dev-APIM-Instance:
+     environment: dev
+     runs-on: ubuntu-latest
+     #if: ${{ !always() }}
+     name: Call-Deploy-to-Dev-APIM-Instance
+     needs: Set-CommitID-to-Publish-Artifacts
+     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yaml@main
+     with:
+      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
+      PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
+      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
+      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
+      API_MANAGEMENT_ENVIRONMENT: dev
+      BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
+      VARIABLE1: ${{ vars.VARIABLE1 }}
      secrets: inherit
