@@ -12,7 +12,9 @@ on:
      - 'artifacts'   
     paths: 
      - 'apimartifacts/**'   
-
+permissions:
+  contents: read
+  id-token: write
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   PUBLISH_ARTIFACTS_CHOICE: "publish-artifacts-in-last-commit"
