@@ -46,19 +46,6 @@ jobs:
          echo "ref to checkout artifacts(commitid): ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID}}"
          echo "publish artifacts choice: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE}}"
          echo "branch to publish artifacts from: ${{ env.BRANCH_TO_DEPLOY_FROM }}"
-    Deploy-to-Dev-APIM-Instance:
-     if: ${{ !always() }}
-     name: Deploy-to-Dev-APIM-Instance
-     runs-on: ubuntu-latest
-     needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/apiops/.github/workflows/publish-into-environment.yaml@main
-     with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
-      PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
-      API_MANAGEMENT_ENVIRONMENT: dev
-      BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
     Call-to-ReUsableWorkFlow:
      environment: dev
      runs-on: ubuntu-latest
