@@ -50,4 +50,4 @@ jobs:
      runs-on: ubuntu-latest
      #if: ${{ !always() }}
      needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yaml@main
+     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
