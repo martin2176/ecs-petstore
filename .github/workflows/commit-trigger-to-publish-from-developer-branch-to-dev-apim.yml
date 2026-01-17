@@ -74,4 +74,3 @@ jobs:
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
       VARIABLE1: ${{ vars.VARIABLE1 }}
-     secrets: inherit
