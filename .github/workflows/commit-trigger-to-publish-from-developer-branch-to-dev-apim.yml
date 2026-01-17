@@ -1,5 +1,5 @@
-name: Commit-Trigger-To-Publish-to-Dev-APIM
-run-name: Commit-Trigger-To-Publish-to-Dev-APIM
+name: Commit-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
+run-name: Commit-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
 #author martin francis kallukalam
 #publish to dev apim instance from <developer> branch when a push/commit event happens on developer branch
 on:
@@ -14,7 +14,7 @@ on:
      - 'apimartifacts/**'   
 
 env:
-  APIOPS_REPO: 'martin2176/ecs-apim-workflows'
+  APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   PUBLISH_ARTIFACTS_CHOICE: "publish-artifacts-in-last-commit"
   BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
   REFTOCHECKOUTFOR_ARTIFACTS: "last commit"
@@ -46,11 +46,9 @@ jobs:
          echo "ref to checkout artifacts(commitid): ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID}}"
          echo "publish artifacts choice: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE}}"
          echo "branch to publish artifacts from: ${{ env.BRANCH_TO_DEPLOY_FROM }}"
-    Deploy-to-Dev-APIM-Instance:
-     if: ${{ !always() }}
-     name: Deploy-to-Dev-APIM-Instance
+    Call-to-ReUsableWorkFlow:
      needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/apiops/.github/workflows/publish-into-environment.yaml@main
+     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
      with:
       COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
@@ -58,4 +56,6 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
-     secrets: inherit
+      VARIABLE1: ${{ vars.VARIABLE1 }}
+     secrets:
+      inherit
