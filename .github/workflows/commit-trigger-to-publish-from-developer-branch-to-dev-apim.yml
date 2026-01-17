@@ -48,6 +48,7 @@ jobs:
          echo "branch to publish artifacts from: ${{ env.BRANCH_TO_DEPLOY_FROM }}"
     Call-to-ReUsableWorkFlow:
      environment: dev
+     runs-on: ubuntu-latest
      #if: ${{ !always() }}
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yaml@main
