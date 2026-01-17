@@ -49,6 +49,7 @@ jobs:
     Call-to-ReUsableWorkFlow:
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
+     environment: dev
      with:
       COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
