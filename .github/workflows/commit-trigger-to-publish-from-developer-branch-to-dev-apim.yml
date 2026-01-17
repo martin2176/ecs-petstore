@@ -60,11 +60,11 @@ jobs:
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
      secrets: inherit
-    Call-Deploy-to-Dev-APIM-Instance:
+    Call-to-ReUsableWorkFlow:
      environment: dev
      runs-on: ubuntu-latest
      #if: ${{ !always() }}
-     name: Call-Deploy-to-Dev-APIM-Instance
+     name: Call-to-ReUsableWorkFlow
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yaml@main
      with:
