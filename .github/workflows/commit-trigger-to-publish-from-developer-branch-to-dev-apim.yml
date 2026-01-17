@@ -59,7 +59,6 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
-     secrets: inherit
     Call-to-ReUsableWorkFlow:
      environment: dev
      runs-on: ubuntu-latest
