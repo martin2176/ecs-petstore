@@ -55,7 +55,7 @@ jobs:
       - name: set-commitid-on-manual-run-to-null-commit
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo' }}
         id: set-commitid-on-manual-run-to-null-commit
-        run: echo "COMMITID=null" >> $GITHUB_ENV
+        run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
       - name: set-commitid
         id: set-commitid
         run: |
@@ -73,7 +73,7 @@ jobs:
       - name: print-user-selections
         id: print-user-selections
         run: |
-         echo "ref(commitid) to checkout artifacts(commitid.null means everything in repo): ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID}}"
+         echo "ref(commitid) to checkout artifacts(commitid of branch name means everything in the branch): ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID}}"
          echo "publish artifacts choice: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE}}"
          echo "branch to deploy artifacts from: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}"
 
@@ -81,7 +81,7 @@ jobs:
      if: ${{ !always() }}
      name: Deploy-to-Dev-APIM-Instance
      needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/apiops/.github/workflows/publish-into-environment.yaml@main
+     uses: martin2176/apiops/.github/workflows/publish-to-dev-apim.yaml@main
      with:
       COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
@@ -91,7 +91,7 @@ jobs:
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}      
      secrets: inherit
     Call-to-ReUsableWorkFlow:
-     #if: ${{ !always() }}
+     if: ${{ always() }}
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
      with:
@@ -101,6 +101,5 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yaml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
-      VARIABLE1: ${{ vars.VARIABLE1 }}
      secrets:
       inherit
