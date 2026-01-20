@@ -15,11 +15,14 @@ on:
 permissions:
   contents: read
   id-token: write
+concurrency:
+ group: publish-to-dev-apim-instance
+ cancel-in-progress: false
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
-  PUBLISH_ARTIFACTS_CHOICE: "publish-artifacts-in-last-commit"
+  PUBLISH_ARTIFACTS_CHOICE: "publish-delta-artifacts-in-latest-commit"
   BRANCH_TO_DEPLOY_FROM: ${{ github.ref_name }}
-  REFTOCHECKOUTFOR_ARTIFACTS: "last commit"
+  REFTOCHECKOUTFOR_ARTIFACTS: "latest commit"
   
 jobs:
     Set-CommitID-to-Publish-Artifacts:
@@ -30,7 +33,7 @@ jobs:
         id: set-commitid
         run: |
          echo "COMMITID=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
-         echo "PUBLISH_ARTIFACTS_CHOICE=publish-delta-artifacts-in-last-commit" >> "$GITHUB_OUTPUT"
+         echo "PUBLISH_ARTIFACTS_CHOICE=publish-delta-artifacts-in-latest-commit" >> "$GITHUB_OUTPUT"
          #echo "COMMITID_SHORT=$(git rev-parse --short ${GITHUB_SHA})" >> "$GITHUB_OUTPUT"
          #echo "COMMITID_SHORT=$(echo ${GITHUB_SHA} | cut -c1-7)" >> "$GITHUB_OUTPUT"
      outputs:
