@@ -81,7 +81,7 @@ jobs:
      if: ${{ !always() }}
      name: Deploy-to-Dev-APIM-Instance
      needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/apiops/.github/workflows/publish-to-dev-apim.yaml@main
+     uses: martin2176/apiops/.github/workflows/publish-to-dev-apim.yml@main
      with:
       COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
