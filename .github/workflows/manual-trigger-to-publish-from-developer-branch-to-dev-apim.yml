@@ -48,11 +48,11 @@ jobs:
         id: set-commitid-on-manual-run-to-latest-commit
         run: echo "COMMITID=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: set-commitid-on-manual-run-to-specific-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE != 'publish-delta-artifacts-in-specific-commit' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-delta-artifacts-in-specific-commit' }}
         id: set-commitid-on-manual-run-to-specific-commit
         run: echo "COMMITID=${{ inputs.REFTOCHECKOUTFOR_ARTIFACTS }}" >> $GITHUB_ENV
       - name: set-commitid-on-manual-run-to-null-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE != 'publish-all-artifacts-in-repo' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo' }}
         id: set-commitid-on-manual-run-to-null-commit
         run: echo "COMMITID=null" >> $GITHUB_ENV
       - name: set-commitid
