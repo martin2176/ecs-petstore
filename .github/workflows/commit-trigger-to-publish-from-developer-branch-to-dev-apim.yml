@@ -15,6 +15,9 @@ on:
 permissions:
   contents: read
   id-token: write
+concurrency:
+ group: publish-to-dev-apim-instance
+ cancel-in-progress: false
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   PUBLISH_ARTIFACTS_CHOICE: "publish-artifacts-in-last-commit"

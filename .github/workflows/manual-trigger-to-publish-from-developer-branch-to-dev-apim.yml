@@ -21,6 +21,12 @@ on:
       required: true
       type: string
       default: "latest commit"
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+ group: publish-to-dev-apim-instance
+ cancel-in-progress: false
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   
