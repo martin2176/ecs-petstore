@@ -19,7 +19,7 @@ on:
      REFTOCHECKOUTFOR_ARTIFACTS:
       description: 'Enter specific Commit ID (long commit) in developer branch to look for artifacts.Default to the latest commit'     
       required: true
-      type: string
+      type: choice
       default: "latest commit"
       options:
        - "latest commit.do not enter a value"
