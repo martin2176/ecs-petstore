@@ -7,7 +7,7 @@ on:
       description: 'Choose between the three options"'
       required: true
       type: choice
-      default: "publish-artifacts-in-latest-commit"
+      default: "publish-delta-artifacts-in-latest-commit"
       options:
        - "publish-delta-artifacts-in-latest-commit"
        - "publish-delta-artifacts-in-specific-commit"
@@ -19,12 +19,9 @@ on:
      REFTOCHECKOUTFOR_ARTIFACTS:
       description: 'Enter specific Commit ID (long commit) in developer branch to look for artifacts.Default to the latest commit'     
       required: true
-      type: choice
+      type: string
       default: "latest commit"
-      options:
-       - "latest commit.do not enter a value"
-       - "all artifacts in repo.do not enter a value"
-       - "enter specific commit (full commit id)"
+
 permissions:
   contents: read
   id-token: write
@@ -48,7 +45,7 @@ jobs:
          fetch-tags: 'false'
          fetch-depth: 15
       - name: set-commitid-on-manual-run-to-latest-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-artifacts-in-latest-commit' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-delta-artifacts-in-latest-commit' }}
         id: set-commitid-on-manual-run-to-latest-commit
         run: echo "COMMITID=$(git rev-parse HEAD)" >> $GITHUB_ENV
       - name: set-commitid-on-manual-run-to-specific-commit
