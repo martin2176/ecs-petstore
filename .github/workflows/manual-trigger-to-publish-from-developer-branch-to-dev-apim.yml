@@ -21,6 +21,10 @@ on:
       required: true
       type: string
       default: "latest commit"
+      options:
+       - "latest commit.do not enter a value"
+       - "all artifacts in repo.do not enter a value"
+       - "enter specific commit (full commit id)"
 permissions:
   contents: read
   id-token: write
