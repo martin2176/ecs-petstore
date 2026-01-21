@@ -8,8 +8,9 @@ on:
      - 'artifacts'
      - 'working'
      - 'main'
-     - 'working'
-     - 'artifacts'   
+     - 'dev'
+     - 'test'
+     - 'prod'
     paths: 
      - 'apimartifacts/**'   
 permissions:
