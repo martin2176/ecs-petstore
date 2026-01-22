@@ -1,5 +1,5 @@
-name: Manual-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
-run-name: Manual-Trigger-To-Publish-from-Developer-Branch-to-Dev-APIM
+name: Manual-Trigger-To-Publish-to-Dev-APIM
+run-name: Manual-Trigger-To-Publish-to-Dev-APIM
 on:
    workflow_dispatch:
     inputs:
