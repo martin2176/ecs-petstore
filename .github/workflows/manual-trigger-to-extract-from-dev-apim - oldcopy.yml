@@ -1,5 +1,5 @@
-name: Manual-Trigger-To-Extract-From-Dev-APIM-Instance
-run-name: Manual-Trigger-To-Extract-From-Dev-APIM-Instance
+name: Manual-Trigger-To-Extract-From-Dev-APIM-Instance-donotuse
+run-name: Manual-Trigger-To-Extract-From-Dev-APIM-Instance-donotuse
 #martin francis kallukalam
 on:
   workflow_dispatch:
@@ -27,12 +27,10 @@ on:
         type: string
         default: 'RITM100000'
       BRANCH_TO_EXTRACT_ARTIFACTS:
-        description: 'Enter the branch where artifacts should be extracted from APIM.'     
-        required: true
-        type: choice
-        default: "working"
-        options:
-        - "working"
+        type: string
+        default: 'artifacts'
+        description: 'Enter the branch where artifacts should be extracted from APIM.' 
+
 permissions:
   contents: read
   id-token: write
@@ -42,8 +40,10 @@ concurrency:
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
-  BASE_BRANCH_FOR_PR: 'main'
-  HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+  BASE_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+  HEAD_BRANCH_FOR_PR: 'working'
+  BRANCH_TO_EXTRACT_ARTIFACTS: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+  PR_REQUIRED: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS == 'artifacts' && 'YES' || 'NO' }}
 jobs:
     Set-Variables-to-Extract-Artifacts:
      name: Set-Variables-to-Extract-Artifacts
@@ -54,9 +54,11 @@ jobs:
         run: |
          echo "BASE_BRANCH_FOR_PR=${{ env.BASE_BRANCH_FOR_PR }}" >> "$GITHUB_OUTPUT"
          echo "HEAD_BRANCH_FOR_PR=${{ env.HEAD_BRANCH_FOR_PR }}" >> "$GITHUB_OUTPUT"
+         echo "PR_REQUIRED=${{ env.PR_REQUIRED }}" >> "$GITHUB_OUTPUT"
      outputs:
       BASE_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.HEAD_BRANCH_FOR_PR }}
+      PR_REQUIRED: ${{ steps.set-variables.outputs.PR_REQUIRED }}
     Print-User-Selections:
      needs: Set-Variables-to-Extract-Artifacts
      name: Print-User-Selections
@@ -72,6 +74,8 @@ jobs:
          echo "PR Label: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}"
          echo "Base Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}"
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
+         echo "PR Required?: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.PR_REQUIRED }}"
+
     Extract-from-Dev-APIM-Instance:
      needs: Set-Variables-to-Extract-Artifacts
      if: ${{ !always() }}
@@ -80,8 +84,10 @@ jobs:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
+      BRANCH_TO_EXTRACT_ARTIFACTS: ${{ inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
       REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
       PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
       BASE_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}
+      PR_REQUIRED: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.PR_REQUIRED }}  
      secrets: inherit
