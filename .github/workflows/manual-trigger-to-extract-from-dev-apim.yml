@@ -84,4 +84,5 @@ jobs:
       PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
       BASE_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}
+      CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
      secrets: inherit
