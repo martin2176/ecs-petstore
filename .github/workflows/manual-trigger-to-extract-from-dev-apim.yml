@@ -85,4 +85,5 @@ jobs:
       BASE_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
+      API_MANAGEMENT_ENVIRONMENT: dev
      secrets: inherit
