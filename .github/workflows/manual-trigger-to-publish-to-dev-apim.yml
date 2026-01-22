@@ -94,17 +94,3 @@ jobs:
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
       REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev      
      secrets: inherit
-    Call-to-ReUsableWorkFlow:
-     if: ${{ !always() }}
-     needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
-     with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
-      PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
-      API_MANAGEMENT_ENVIRONMENT: dev
-      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
-      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev
-     secrets:
-      inherit
