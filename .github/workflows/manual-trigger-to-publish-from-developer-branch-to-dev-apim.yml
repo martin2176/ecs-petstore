@@ -4,7 +4,7 @@ on:
    workflow_dispatch:
     inputs:
      PUBLISH_ARTIFACTS_CHOICE:
-      description: 'Choose between the three options"'
+      description: 'Choose from list of option(s)"'
       required: true
       type: choice
       default: "publish-delta-artifacts-in-latest-commit"
