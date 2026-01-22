@@ -11,7 +11,7 @@ on:
       options:
        - "publish-delta-artifacts-in-latest-commit"
        - "publish-delta-artifacts-in-specific-commit"
-       - "publish-all-artifacts-in-repo"
+#       - "publish-all-artifacts-in-repo"
      BRANCH_TO_DEPLOY_FROM:
       description: 'Enter the developer branch to deploy APIM artifacts from. Select your own developer branch'     
       required: true
