@@ -15,6 +15,7 @@ on:
      BRANCH_TO_DEPLOY_FROM:
       description: 'Branch to deploy APIM artifacts from.'     
       required: true
+      type: choice
       default: "main"
       options:
        - "main"
