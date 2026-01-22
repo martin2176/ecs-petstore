@@ -91,7 +91,8 @@ jobs:
       API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
-      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}      
+      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
+      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev      
      secrets: inherit
     Call-to-ReUsableWorkFlow:
      if: ${{ !always() }}
@@ -104,5 +105,6 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
+      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev
      secrets:
       inherit

@@ -101,5 +101,6 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
+      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev
      secrets:
       inherit
