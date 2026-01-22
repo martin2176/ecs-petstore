@@ -49,7 +49,6 @@ jobs:
     Print-User-Selections:
      name: Print-User-Selections
      runs-on: ubuntu-latest
-     needs: Set-CommitID-to-Publish-Artifacts
      steps:
       - name: print-user-selections
         id: print-user-selections
