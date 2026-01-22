@@ -79,8 +79,6 @@ jobs:
     Extract-from-Dev-APIM-Instance:
      needs: Set-Variables-to-Extract-Artifacts
      if: ${{ !always() }}
-     name: Extract-from-Dev-APIM-Instance
-     needs: Print-User-Selections
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
