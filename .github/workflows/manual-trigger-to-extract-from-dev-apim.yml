@@ -26,6 +26,10 @@ on:
         required: true
         type: string
         default: 'RITM100000'
+      BRANCH_TO_EXTRACT_ARTIFACTS:
+        type: string
+        default: 'artifacts'
+        description: 'Enter the branch where artifacts should be extracted from APIM.' 
 
 permissions:
   contents: read
@@ -37,42 +41,11 @@ env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
   PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
-  BASE_BRANCH: artifacts
-  HEAD_BRANCH: working
+  BASE_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+  HEAD_BRANCH_FOR_PR: 'working'
+  BRANCH_TO_EXTRACT_ARTIFACTS: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+  PR_REQUIRED: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS == 'artifacts' && 'YES' || 'NO' }}
 jobs:
-    Set-CommitID-to-Publish-Artifacts:
-     if:  ${{ github.event_name == 'workflow_dispatch' }}
-     name: Set-CommitID-to-Publish-Artifacts
-     runs-on: ubuntu-latest
-     steps:
-      - name: checkout-developer-branch
-        id: checkout-developer-branch
-        uses: actions/checkout@v4
-        with:
-         ref: '${{ inputs.BRANCH_TO_DEPLOY_FROM }}'
-         fetch-tags: 'false'
-         fetch-depth: 15
-      - name: set-commitid-on-manual-run-to-latest-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-delta-artifacts-in-latest-commit' }}
-        id: set-commitid-on-manual-run-to-latest-commit
-        run: echo "COMMITID=$(git rev-parse HEAD)" >> $GITHUB_ENV
-      - name: set-commitid-on-manual-run-to-specific-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-delta-artifacts-in-specific-commit' }}
-        id: set-commitid-on-manual-run-to-specific-commit
-        run: echo "COMMITID=${{ inputs.REFTOCHECKOUTFOR_ARTIFACTS }}" >> $GITHUB_ENV
-      - name: set-commitid-on-manual-run-to-null-commit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo' }}
-        id: set-commitid-on-manual-run-to-null-commit
-        run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
-      - name: set-commitid
-        id: set-commitid
-        run: |
-         echo "COMMITID=${COMMITID}" >> "$GITHUB_OUTPUT"
-         echo "PUBLISH_ARTIFACTS_CHOICE=${{ inputs.PUBLISH_ARTIFACTS_CHOICE }}" >> "$GITHUB_OUTPUT"
-     outputs:
-      COMMITID: ${{ steps.set-commitid.outputs.COMMITID }}
-      PUBLISH_ARTIFACTS_CHOICE: ${{ steps.set-commitid.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-    
     Print-User-Selections:
      name: Print-User-Selections
      runs-on: ubuntu-latest
@@ -84,20 +57,25 @@ jobs:
          echo "Extractor Options: ${{ inputs.EXTRACTOR_OPTION }}"
          echo "API Specification Format: ${{ inputs.API_SPECIFICATION_FORMAT}}"
          echo "Reference ticket#: ${{ inputs.REFERENCE_NUMBER }}"
+         echo "Branch to extract artifacts to: ${{ inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}"
+         echo "PR Label: ${{ env.PULL_REQUEST_LABEL }}"
+         echo "Base Branch for PR: ${{ env.BASE_BRANCH_FOR_PR }}"
+         echo "Head Branch for PR: ${{ env.HEAD_BRANCH_FOR_PR }}"
+         echo "PR Required?: ${{ env.PR_REQUIRED }}"
 
     Extract-from-Dev-APIM-Instance:
-     if: ${{ always() }}
+     if: ${{ !always() }}
      name: Extract-from-Dev-APIM-Instance
-     needs: Set-CommitID-to-Publish-Artifacts
-     uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
+     needs: Print-User-Selections
+     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
-      PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
-      API_MANAGEMENT_ENVIRONMENT: dev
-      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}      
+      BRANCH_TO_EXTRACT_ARTIFACTS: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
+      REFTOCHECKOUTFOR_EXTRACTORCONFIG: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
+      PULL_REQUEST_LABEL: apimartifacts
+      BASE_BRANCH_FOR_PR: configuration-publisher-dev.yml
+      HEAD_BRANCH_FOR_PR: dev
+      PR_REQUIRED: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}      
      secrets: inherit
