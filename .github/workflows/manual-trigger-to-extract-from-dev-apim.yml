@@ -75,7 +75,7 @@ jobs:
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
     Extract-from-Dev-APIM-Instance:
      needs: Set-Variables-to-Extract-Artifacts
-     if: ${{ !always() }}
+     if: ${{ always() }}
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
