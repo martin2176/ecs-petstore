@@ -13,9 +13,11 @@ on:
        - "publish-delta-artifacts-in-specific-commit"
        - "publish-all-artifacts-in-repo"
      BRANCH_TO_DEPLOY_FROM:
-      description: 'Enter the developer branch to deploy APIM artifacts from. Select your own developer branch'     
+      description: 'Branch to deploy APIM artifacts from.'     
       required: true
-      type: string
+      default: "main"
+      options:
+       - "main"
      REFTOCHECKOUTFOR_ARTIFACTS:
       description: 'Enter specific Commit ID (long commit) in developer branch to look for artifacts.Default to the latest commit'     
       required: true
