@@ -71,10 +71,10 @@ jobs:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
-      BRANCH_TO_EXTRACT_ARTIFACTS: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
-      REFTOCHECKOUTFOR_EXTRACTORCONFIG: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      PULL_REQUEST_LABEL: apimartifacts
-      BASE_BRANCH_FOR_PR: configuration-publisher-dev.yml
-      HEAD_BRANCH_FOR_PR: dev
-      PR_REQUIRED: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}      
+      BRANCH_TO_EXTRACT_ARTIFACTS: ${{ env.BASE_BRANCH_FOR_PR }}
+      REFTOCHECKOUTFOR_EXTRACTORCONFIG: ${{ env.REFTOCHECKOUTFOR_EXTRACTORCONFIG }}
+      PULL_REQUEST_LABEL: ${{ env.PULL_REQUEST_LABEL }}
+      BASE_BRANCH_FOR_PR: ${{ env.BASE_BRANCH_FOR_PR }}
+      HEAD_BRANCH_FOR_PR: ${{ env.HEAD_BRANCH_FOR_PR }}
+      PR_REQUIRED: ${{ env.PR_REQUIRED }}    
      secrets: inherit
