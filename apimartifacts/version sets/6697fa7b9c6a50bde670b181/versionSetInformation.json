@@ -1,0 +1,6 @@
+{
+  "properties": {
+    "displayName": "httpbin",
+    "versioningScheme": "Segment"
+  }
+}
