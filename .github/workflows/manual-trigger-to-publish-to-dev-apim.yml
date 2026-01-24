@@ -11,8 +11,8 @@ on:
       options:
        - "publish-delta-artifacts-in-latest-commit"
        - "publish-delta-artifacts-in-specific-commit"
-       - "publish-all-artifacts-in-repo-from-latest-commit"
-       - "publish-all-artifacts-in-repo-from-specific-commit"
+       - "publish-all-artifacts-in-repo-to-latest-commit"
+       - "publish-all-artifacts-in-repo-to-specific-commit"
      BRANCH_TO_DEPLOY_FROM:
       description: 'Branch to deploy APIM artifacts from.'     
       required: true
@@ -59,12 +59,12 @@ jobs:
         run: echo "COMMITID=${{ inputs.REFTOCHECKOUTFOR_ARTIFACTS }}" >> $GITHUB_ENV
         
       - name: set-commitid-for-all-artifacts-to-latest-commmit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-from-latest-commit' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-latest-commit' }}
         id: set-commitid-for-all-artifacts-to-latest-commmit
         run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
         
       - name: set-commitid-for-all-artifacts-to-specific-commmit
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-from-specific-commit' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-specific-commit' }}
         id: set-commitid-for-all-artifacts-to-specific-commmit
         run: echo "COMMITID=${{ inputs.REFTOCHECKOUTFOR_ARTIFACTS }}" >> $GITHUB_ENV
         
