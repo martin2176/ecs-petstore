@@ -61,7 +61,8 @@ jobs:
       - name: set-commitid-for-all-artifacts-to-latest-commmit
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-latest-commit' }}
         id: set-commitid-for-all-artifacts-to-latest-commmit
-        run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
+        #run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
+        run: echo "COMMITID=$(git rev-parse HEAD)" >> $GITHUB_ENV
         
       - name: set-commitid-for-all-artifacts-to-specific-commmit
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-specific-commit' }}
