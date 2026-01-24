@@ -90,7 +90,7 @@ jobs:
          echo "branch to deploy artifacts from: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}"
 
     Deploy-to-Dev-APIM-Instance:
-     if: ${{ !always() }}
+     #if: ${{ !always() }}
      name: Deploy-to-Dev-APIM-Instance
      needs: Set-CommitID-to-Publish-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-dev-apim.yml@main
