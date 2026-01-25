@@ -69,7 +69,6 @@ jobs:
          echo "API Specification Format: ${{ inputs.API_SPECIFICATION_FORMAT}}"
          echo "Reference ticket#: ${{ inputs.REFERENCE_NUMBER }}"
          echo "Branch to extract artifacts to: ${{ inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}"
-         echo "PR Label: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}"
          echo "Base Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}"
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
     Extract-from-Dev-APIM-Instance:
