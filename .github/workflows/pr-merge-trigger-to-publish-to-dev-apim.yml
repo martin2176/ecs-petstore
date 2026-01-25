@@ -1,0 +1,35 @@
+name: PRMerge-Trigger-To-Publish-to-Dev-APIM
+run-name: PRMerge-Trigger-To-Publish-to-Dev-APIM
+#author martin francis kallukalam
+on:
+   pull_request:
+    branches: [main]
+    types: [closed]
+    paths: 
+     - 'apimartifacts/**'
+jobs:
+    Check-If-MileStone-Exists:
+    if: github.event.pull_request.milestone.number == null
+    name: Check-If-MileStone-Exists
+    runs-on: ubuntu-latest
+    steps:
+      - name: print-error-nomilestone
+        id: print-error-nomilestone
+        run: |
+         echo "PR not associated with a milestone.Exiting"
+         echo "PR not associated with a milestone.Exiting. :thumbsdown:" > $GITHUB_STEP_SUMMARY
+         exit 1
+    Print-Output:
+     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+     name: printoutput
+     runs-on: ubuntu-latest
+     steps:
+      - name: printoutput
+        id: set-commitid
+        run: |
+         
+         echo "${{ github.event.pull_request.number }}"
+         echo "${{ github.event.pull_request.milestone.number }}"
+         echo "${{ github.event.pull_request.milestone.id }}"
+         echo "${{ github.event.pull_request.milestone.title }}"
+        
