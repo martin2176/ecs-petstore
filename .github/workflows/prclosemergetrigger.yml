@@ -1,0 +1,25 @@
+name: prcloseandmerge
+run-name: prcloseandmerge
+#author martin francis kallukalam
+on:
+   pull_request:
+    branches: [main]
+    types: [closed]
+    paths: 
+     - 'apimartifacts/**'
+  
+jobs:
+    Print-Output:
+     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+     name: printoutput
+     runs-on: ubuntu-latest
+     steps:
+      - name: printoutput
+        id: set-commitid
+        run: |
+         
+         echo "${{ github.event.pull_request.number }}"
+         echo "${{ github.event.pull_request.milestone.number }}"
+         echo "${{ github.event.pull_request.milestone.id }}"
+         echo "${{ github.event.pull_request.milestone.title }}"
+        

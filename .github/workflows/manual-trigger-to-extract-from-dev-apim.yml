@@ -10,7 +10,7 @@ on:
         type: choice
         options:
         - 'Extract Selected APIM Artifacts'
-        - 'Extract All APIM Artifacts'
+#        - 'Extract All APIM Artifacts'
       API_SPECIFICATION_FORMAT:
         description: 'API specification format to extract the API spec'     
         required: true
@@ -22,7 +22,7 @@ on:
         - OpenAPIV2Json
         default: OpenAPIV3Yaml
       REFERENCE_NUMBER:
-        description: 'Reference(ticket) number to include in the title of PR.'     
+        description: 'Reference(ticket) number to include in the title of PR and milestone.'     
         required: true
         type: string
         default: 'RITM100000'
@@ -42,7 +42,6 @@ concurrency:
  cancel-in-progress: false
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
-  PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
   BASE_BRANCH_FOR_PR: 'main'
   HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
 jobs:
@@ -75,14 +74,13 @@ jobs:
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
     Extract-from-Dev-APIM-Instance:
      needs: Set-Variables-to-Extract-Artifacts
-     if: ${{ always() }}
+#     if: ${{ always() }}
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
       REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
-      PULL_REQUEST_LABEL: ticket-${{ github.event.inputs.REFERENCE_NUMBER }}
       BASE_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
