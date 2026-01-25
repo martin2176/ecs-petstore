@@ -9,11 +9,12 @@ on:
      - 'apimartifacts/**'
 jobs:
    Check-If-MileStone-Exists:
-    if: github.event.pull_request.milestone.number == null
+    if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
     name: Check-If-MileStone-Exists
     runs-on: ubuntu-latest
     steps:
       - name: print-error-nomilestone
+        if: github.event.pull_request.milestone.number == null
         id: print-error-nomilestone
         run: |
          echo "PR not associated with a milestone.Exiting"
