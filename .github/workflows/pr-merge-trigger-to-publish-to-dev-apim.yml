@@ -45,5 +45,5 @@ jobs:
          echo "${{ github.event.pull_request.base.sha }}"
          echo "${{ github.event.pull_request.head.ref }}"
          echo "${{ github.event.pull_request.head.sha }}"
-
+         echo "${{ github.event.pull_request.merge_commit_sha }}"
         
