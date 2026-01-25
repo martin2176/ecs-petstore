@@ -17,7 +17,7 @@ jobs:
       - name: printoutput
         id: set-commitid
         run: |
-         echo "${ github.event.pull_request.merged }}"
+         
          echo "${{ github.event.pull_request.number }}"
          echo "${{ github.event.pull_request.milestone.number }}"
          echo "${{ github.event.pull_request.milestone.id }}"
