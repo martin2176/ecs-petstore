@@ -20,7 +20,9 @@ jobs:
          echo "PR not associated with a milestone.Exiting"
          echo "PR not associated with a milestone.Exiting. :thumbsdown:" > $GITHUB_STEP_SUMMARY
          exit 1
+         continue-on-error: false
    Print-Output:
+    needs: Check-If-MileStone-Exists
     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
     name: printoutput
     runs-on: ubuntu-latest
