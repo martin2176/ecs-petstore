@@ -1,0 +1,33 @@
+name: createmilestone
+run-name: createmilestone
+#martin francis kallukalam
+on:
+  workflow_dispatch:
+    inputs:
+      REFERENCE_NUMBER:
+        description: 'Reference(ticket) number to include in the title of PR and milestone.'     
+        required: true
+        type: string
+        default: 'RITM100000'
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+env:
+  MILESTONE_TITLE: ${{ inputs.REFERENCE_NUMBER }}
+jobs:
+   MileStone:
+    name: MileStone
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Create-Or-Get-MileStone-Number
+        id: Create-Or-Get-MileStone-Number
+        uses: sv-tools/create-milestone-action@v2.0.0
+        with:
+         token: ${{ secrets.GITHUB_TOKEN }}
+         title: "${{ env.MILESTONE_TITLE }}"
+         description: Next Release, To be renamed with a proper semver
+      - name: Print-MileStone-Number
+        shell: bash
+        run: |
+         echo "milestonenumber is ${{ steps.Create-Or-Get-MileStone-Number.outputs.number }}"
