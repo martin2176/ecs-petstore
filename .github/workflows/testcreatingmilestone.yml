@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Create-Or-Get-MileStone-Number
         id: Create-Or-Get-MileStone-Number
-        uses: sv-tools/create-milestone-action@v2
+        uses: sv-tools/create-milestone-action@v2.0.0
         with:
          token: ${{ secrets.GITHUB_TOKEN }}
          title: "${{ env.MILESTONE_TITLE }}"
