@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: ''
+  version: '1.0'
 servers:
   - url: http://feiaz-apim-dev.azure-api.net/api1
   - url: https://feiaz-apim-dev.azure-api.net/api1
