@@ -8,13 +8,13 @@ on:
     paths: 
      - 'apimartifacts/**'
 jobs:
-   Check-If-MileStone-Exists:
-    if: ${{ !always() }}
-    #if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-    name: Check-If-MileStone-Exists
+   Prerequisite-Check-and-Tag-Commit:
+    #if: ${{ !always() }}
+    if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+    name: Prerequisite-Check-and-Tag-Commit
     runs-on: ubuntu-latest
     steps:
-      - name: print-error-nomilestone
+      - name: Print-Error-Nomilestone
         if: github.event.pull_request.milestone.number == null
         id: print-error-nomilestone
         run: |
@@ -22,28 +22,29 @@ jobs:
          echo "PR not associated with a milestone.Exiting. :thumbsdown:" > $GITHUB_STEP_SUMMARY
          exit 1
          continue-on-error: false
-   Print-Output:
-    # needs: Check-If-MileStone-Exists
-    if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-    name: printoutput
-    runs-on: ubuntu-latest
-    steps:
-      - name: printoutput
-        id: set-commitid
+      - name: Print-Error-NoMergeCommit
+        if: github.event.pull_request.merge_commit_sha == null
+        id: print-error-nomergecommit
         run: |
-         echo "${{ github.event_name }}"
-         echo "${{ github.event.pull_request.number }}"
-         echo "${{ github.event.pull_request.state }}"
-         echo "${{ github.event.pull_request.user.name }}"
-         echo "${{ github.event.pull_request.state }}"
-         echo "${{ github.event.pull_request.milestone.number }}"
-         echo "${{ github.event.pull_request.milestone.title }}"
-         echo "${{ github.event.pull_request.milestone.creator.name }}"
-         echo "${{ github.event.pull_request.milestone.id }}"
-         echo "${{ github.event.pull_request.milestone.title }}"
-         echo "${{ github.event.pull_request.base.ref }}"
-         echo "${{ github.event.pull_request.base.sha }}"
-         echo "${{ github.event.pull_request.head.ref }}"
-         echo "${{ github.event.pull_request.head.sha }}"
-         echo "${{ github.event.pull_request.merge_commit_sha }}"
-        
+         echo "No Merge Commmit available with the PR merge close event.Exiting"
+         echo "No Merge Commmit available with the PR merge close event. :thumbsdown:" > $GITHUB_STEP_SUMMARY
+         exit 1
+         continue-on-error: false
+      - name: Print-Relevant-Info
+        id: print-relevant-info
+        run: |
+         echo "PR number merged is ${{ github.event.pull_request.number }}"
+         echo "PR state is ${{ github.event.pull_request.state }}"
+         echo "PR milestone title is ${{ github.event.pull_request.milestone.title }}"
+         echo "PR milestone number is ${{ github.event.pull_request.milestone.number }}"
+         echo "PR base REF is ${{ github.event.pull_request.base.ref }}"
+         echo "PR head REF is ${{ github.event.pull_request.head.ref }}"
+         echo "PR head SHA is ${{ github.event.pull_request.head.ref }}"
+         echo "PR merge commit SHA is ${{ github.event.pull_request.merge_commit_sha }}"
+         echo "PR merge commit SHA is ${GITHUB_SHA}"
+         echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
+      - name: Tag-Merge-Commit
+        if: ${{ !always() }}
+        id: tag-merge-commit
+        run: |
+         echo "hello"
