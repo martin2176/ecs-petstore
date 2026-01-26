@@ -49,6 +49,13 @@ jobs:
          echo "PR merge commit SHA is ${GITHUB_SHA}"
          echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
          echo "Short PR merge commit SHA is ${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
+      - name: Checkout-Main-Branch
+        id: checkout-main-branch
+        uses: actions/checkout@v6
+        with:
+         ref: '${{ github.event.pull_request.merge_commit_sha }}'
+         fetch-tags: 'true'
+         fetch-depth: 50
       - name: Tag-Merge-Commit
         #if: ${{ !always() }}
         id: tag-merge-commit
