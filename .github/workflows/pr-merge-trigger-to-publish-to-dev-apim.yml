@@ -53,5 +53,6 @@ jobs:
         #if: ${{ !always() }}
         id: tag-merge-commit
         run: |
-         echo "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
-         #git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
+         echo "Commit tag is milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
+         git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}" ${{ github.event.pull_request.merge_commit_sha }}
+         git push origin "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
