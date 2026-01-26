@@ -10,7 +10,7 @@ on:
         type: choice
         options:
         - 'Extract Selected APIM Artifacts'
-#        - 'Extract All APIM Artifacts'
+#       - 'Extract All APIM Artifacts'
       API_SPECIFICATION_FORMAT:
         description: 'API specification format to extract the API spec'     
         required: true
@@ -27,7 +27,7 @@ on:
         type: string
         default: 'RITM100000'
       BRANCH_TO_EXTRACT_ARTIFACTS:
-        description: 'Enter the branch where artifacts should be extracted from APIM.'     
+        description: 'Enter the branch (head branch of PR) where artifacts should be extracted from APIM.'     
         required: true
         type: choice
         default: "working"
@@ -44,6 +44,9 @@ env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   BASE_BRANCH_FOR_PR: 'main'
   HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+# REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
+# API_MANAGEMENT_ENVIRONMENT: dev
+# CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
 jobs:
     Set-Variables-to-Extract-Artifacts:
      name: Set-Variables-to-Extract-Artifacts
@@ -73,7 +76,6 @@ jobs:
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
     Extract-from-Dev-APIM-Instance:
      needs: Set-Variables-to-Extract-Artifacts
-#     if: ${{ always() }}
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
