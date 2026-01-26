@@ -54,4 +54,4 @@ jobs:
         id: tag-merge-commit
         run: |
          echo "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
-         #git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
+         #git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-set-shortcommit-id.outputs.SHORT_COMMITID }}"
