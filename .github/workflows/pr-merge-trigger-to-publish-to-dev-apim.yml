@@ -49,8 +49,8 @@ jobs:
          echo "PR merge commit SHA is ${GITHUB_SHA}"
          echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
          echo "Short PR merge commit SHA is ${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
-      - name: Checkout-Main-Branch
-        id: checkout-main-branch
+      - name: Checkout-Base-Branch
+        id: checkout-base-branch
         uses: actions/checkout@v6
         with:
          ref: '${{ github.event.pull_request.merge_commit_sha }}'
@@ -60,12 +60,8 @@ jobs:
         #if: ${{ !always() }}
         id: tag-merge-commit
         run: |
-         pwd
-         ls -al
-         ls -alR
          cd $GITHUB_WORKSPACE
          pwd
-         ls -al
          echo "Commit tag is milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
          git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}" ${{ github.event.pull_request.merge_commit_sha }}
          git push origin "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
