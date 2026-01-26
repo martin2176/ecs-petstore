@@ -30,6 +30,11 @@ jobs:
          echo "No Merge Commmit available with the PR merge close event. :thumbsdown:" > $GITHUB_STEP_SUMMARY
          exit 1
          continue-on-error: false
+      - name: Set-ShortCommit-Id
+        id: set-shortcommit-id
+        run: |
+         #echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
+         echo "SHORT_COMMITID=$(echo ${{ github.event.pull_request.merge_commit_sha }} | cut -c1-7)" >> $GITHUB_ENV
       - name: Print-Relevant-Info
         id: print-relevant-info
         run: |
@@ -39,12 +44,13 @@ jobs:
          echo "PR milestone number is ${{ github.event.pull_request.milestone.number }}"
          echo "PR base REF is ${{ github.event.pull_request.base.ref }}"
          echo "PR head REF is ${{ github.event.pull_request.head.ref }}"
-         echo "PR head SHA is ${{ github.event.pull_request.head.ref }}"
+         echo "PR head SHA is ${{ github.event.pull_request.head.sha }}"
          echo "PR merge commit SHA is ${{ github.event.pull_request.merge_commit_sha }}"
          echo "PR merge commit SHA is ${GITHUB_SHA}"
          echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
+         echo "Short PR merge commit SHA is ${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
       - name: Tag-Merge-Commit
         if: ${{ !always() }}
         id: tag-merge-commit
         run: |
-         echo "hello"
+         git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
