@@ -50,7 +50,7 @@ jobs:
          echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
          echo "Short PR merge commit SHA is ${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
       - name: Tag-Merge-Commit
-        if: ${{ !always() }}
+        #if: ${{ !always() }}
         id: tag-merge-commit
         run: |
          echo "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit.outputs.SHORT_COMMITID }}"
