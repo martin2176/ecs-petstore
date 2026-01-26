@@ -34,7 +34,10 @@ concurrency:
  cancel-in-progress: false
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
-  
+  API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: 'apimartifacts'
+  API_MANAGEMENT_ENVIRONMENT: 'dev'
+  REFTOCHECKOUTFOR_PUBLISHERCONFIG: 'dev'
+  CONFIGURATION_YAML_PATH: 'configuration-publisher-dev.yml'
 jobs:
     Set-CommitID-to-Publish-Artifacts:
      if:  ${{ github.event_name == 'workflow_dispatch' }}
@@ -61,7 +64,6 @@ jobs:
       - name: set-commitid-for-all-artifacts-to-latest-commmit
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-latest-commit' }}
         id: set-commitid-for-all-artifacts-to-latest-commmit
-        #run: echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> $GITHUB_ENV
         run: echo "COMMITID=$(git rev-parse HEAD)" >> $GITHUB_ENV
         
       - name: set-commitid-for-all-artifacts-to-specific-commmit
@@ -98,9 +100,9 @@ jobs:
      with:
       COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
-      API_MANAGEMENT_ENVIRONMENT: dev
+      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: ${{ env.API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH }}
+      CONFIGURATION_YAML_PATH: ${{ env.CONFIGURATION_YAML_PATH }}
+      API_MANAGEMENT_ENVIRONMENT: ${{ env.API_MANAGEMENT_ENVIRONMENT }}
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
-      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev      
+      REFTOCHECKOUTFOR_PUBLISHERCONFIG: ${{ env.REFTOCHECKOUTFOR_PUBLISHERCONFIG }}      
      secrets: inherit
