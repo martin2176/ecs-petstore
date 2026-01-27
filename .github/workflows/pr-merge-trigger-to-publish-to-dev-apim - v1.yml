@@ -8,20 +8,6 @@ on:
     paths: 
      - 'apimartifacts/**'
 jobs:
-    Prerequisite-Check-and-Tag-Commit:
-     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-     name: Prerequisite-Check-and-Tag-Commit
-     uses: martin2176/ecs-apim-workflows/.github/workflows/prereq-check-and-tag-commit.yml@main
-     with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
-      PUBLISH_ARTIFACTS_CHOICE: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.PUBLISH_ARTIFACTS_CHOICE }}
-      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
-      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
-      API_MANAGEMENT_ENVIRONMENT: dev
-      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
-      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev      
-     secrets: inherit
-
    Prerequisite-Check-and-Tag-Commit:
     #if: ${{ !always() }}
     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
