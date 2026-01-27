@@ -44,6 +44,8 @@ env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
   BASE_BRANCH_FOR_PR: 'main'
   HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
+#The below values are used in calling the reusable workflow. but not referenced as env variables
+#since with clause doesnt support env variables
 # REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
 # API_MANAGEMENT_ENVIRONMENT: dev
 # CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
