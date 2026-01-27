@@ -74,7 +74,7 @@ jobs:
          echo "Branch to extract artifacts to: ${{ inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}"
          echo "Base Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}"
          echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
-    Extract-from-Dev-APIM-Instance:
+    Extract-Artifacts-from-Dev-APIM:
      needs: Set-Variables-to-Extract-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
