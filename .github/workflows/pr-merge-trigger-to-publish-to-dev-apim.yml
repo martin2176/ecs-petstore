@@ -24,3 +24,17 @@ jobs:
       PR_STATE: ${{ github.event.pull_request.state }}
       PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
       PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+
+    Publish-Artifacts-to-Dev-APIM:
+     name: Publish-Artifacts-to-Dev-APIM
+     needs: Prerequisite-Check-and-Tag-Commit
+     uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-dev-apim.yml@main
+     with:
+      COMMITID: ${{ github.event.pull_request.merge_commit_sha }}
+      PUBLISH_ARTIFACTS_CHOICE: "publish-delta-artifacts-in-specific-commit"
+      API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
+      CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
+      API_MANAGEMENT_ENVIRONMENT: dev
+      BRANCH_TO_DEPLOY_FROM: main
+      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev      
+     secrets: inherit
