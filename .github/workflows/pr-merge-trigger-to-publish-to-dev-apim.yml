@@ -7,61 +7,20 @@ on:
     types: [closed]
     paths: 
      - 'apimartifacts/**'
+concurrency:
+ group: prmeerge-trigger-to-publish-to-dev-apim
+ cancel-in-progress: false
 jobs:
-   Prerequisite-Check-and-Tag-Commit:
-    #if: ${{ !always() }}
-    if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-    name: Prerequisite-Check-and-Tag-Commit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print-Error-Nomilestone
-        if: github.event.pull_request.milestone.number == null
-        id: print-error-nomilestone
-        run: |
-         echo "PR not associated with a milestone.Exiting"
-         echo "PR not associated with a milestone.Exiting. :thumbsdown:" > $GITHUB_STEP_SUMMARY
-         exit 1
-         continue-on-error: false
-      - name: Print-Error-NoMergeCommit
-        if: github.event.pull_request.merge_commit_sha == null
-        id: print-error-nomergecommit
-        run: |
-         echo "No Merge Commmit available with the PR merge close event.Exiting"
-         echo "No Merge Commmit available with the PR merge close event. :thumbsdown:" > $GITHUB_STEP_SUMMARY
-         exit 1
-         continue-on-error: false
-      - name: Set-ShortCommit-Id
-        id: set-shortcommit-id
-        run: |
-         #echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
-         echo "SHORT_COMMITID=$(echo ${{ github.event.pull_request.merge_commit_sha }} | cut -c1-7)" >> "$GITHUB_OUTPUT"
-      - name: Print-Relevant-Info
-        id: print-relevant-info
-        run: |
-         echo "PR number for this closed & merged PR is ${{ github.event.pull_request.number }}"
-         echo "PR state is ${{ github.event.pull_request.state }}"
-         echo "PR milestone title is ${{ github.event.pull_request.milestone.title }}"
-         echo "PR milestone number is ${{ github.event.pull_request.milestone.number }}"
-         echo "PR base REF is ${{ github.event.pull_request.base.ref }}"
-         echo "PR head REF is ${{ github.event.pull_request.head.ref }}"
-         echo "PR head SHA is ${{ github.event.pull_request.head.sha }}"
-         echo "PR merge commit SHA is ${{ github.event.pull_request.merge_commit_sha }}"
-         echo "PR merge commit SHA is ${GITHUB_SHA}"
-         echo "Short PR merge commit SHA is $(echo ${GITHUB_SHA} | cut -c1-7)"
-         echo "Short PR merge commit SHA is ${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
-      - name: Checkout-Base-Branch
-        id: checkout-base-branch
-        uses: actions/checkout@v6
-        with:
-         ref: '${{ github.event.pull_request.merge_commit_sha }}'
-         fetch-tags: 'true'
-         fetch-depth: 50
-      - name: Tag-Merge-Commit
-        #if: ${{ !always() }}
-        id: tag-merge-commit
-        run: |
-         cd $GITHUB_WORKSPACE
-         pwd
-         echo "Commit tag is milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
-         git tag -f "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}" ${{ github.event.pull_request.merge_commit_sha }}
-         git push origin "milestone-${{ github.event.pull_request.milestone.title }}-pr-${{ github.event.pull_request.number }}-commitid-${{ steps.set-shortcommit-id.outputs.SHORT_COMMITID }}"
+    Prerequisite-Check-and-Tag-Commit:
+     if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
+     name: Prerequisite-Check-and-Tag-Commit
+     uses: martin2176/ecs-apim-workflows/.github/workflows/prereq-check-and-tag-commit.yml@main
+     with:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_MILESTONE_NUMBER: ${{ github.event.pull_request.milestone.number }}
+      PR_MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
+      PR_MERGE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+      PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      PR_STATE: ${{ github.event.pull_request.state }}
+      PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
+      PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
