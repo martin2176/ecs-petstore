@@ -1,5 +1,5 @@
-name: PRMerge-Trigger-To-Publish-to-Dev-APIM
-run-name: PRMerge-Trigger-To-Publish-to-Dev-APIM
+name: PRMerge-Trigger-To-Publish-to-Dev-APIM-v1
+run-name: PRMerge-Trigger-To-Publish-to-Dev-APIM-v1
 #author martin francis kallukalam
 on:
    pull_request:
