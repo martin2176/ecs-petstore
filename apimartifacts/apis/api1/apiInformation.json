@@ -2,7 +2,6 @@
   "properties": {
     "path": "api1",
     "apiRevision": "1",
-    "apiVersionSetId": "/apiVersionSets/6975375a5ef881e3a4c4b568",
     "authenticationSettings": {},
     "contact": {
       "email": "apiteam@swagger.io"
