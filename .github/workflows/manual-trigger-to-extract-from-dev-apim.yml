@@ -50,36 +50,7 @@ env:
 # API_MANAGEMENT_ENVIRONMENT: dev
 # CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
 jobs:
-    Set-Variables-to-Extract-Artifacts:
-     if ${{ !always }}
-     name: Set-Variables-to-Extract-Artifacts
-     runs-on: ubuntu-latest
-     steps:
-      - name: set-variables
-        id: set-variables
-        run: |
-         echo "BASE_BRANCH_FOR_PR=${{ env.BASE_BRANCH_FOR_PR }}" >> "$GITHUB_OUTPUT"
-         echo "HEAD_BRANCH_FOR_PR=${{ env.HEAD_BRANCH_FOR_PR }}" >> "$GITHUB_OUTPUT"
-     outputs:
-      BASE_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.BASE_BRANCH_FOR_PR }}
-      HEAD_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.HEAD_BRANCH_FOR_PR }}
-    Print-User-Selections:
-     if ${{ !always }}
-     needs: Set-Variables-to-Extract-Artifacts
-     name: Print-User-Selections
-     runs-on: ubuntu-latest
-     steps:
-      - name: print-user-selections
-        id: print-user-selections
-        run: |
-         echo "Extractor Options: ${{ inputs.EXTRACTOR_OPTION }}"
-         echo "API Specification Format: ${{ inputs.API_SPECIFICATION_FORMAT}}"
-         echo "Reference ticket#: ${{ inputs.REFERENCE_NUMBER }}"
-         echo "Branch to extract artifacts to: ${{ inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}"
-         echo "Base Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}"
-         echo "Head Branch for PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}"
     Extract-Artifacts-from-Dev-APIM:
-     needs: Set-Variables-to-Extract-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
