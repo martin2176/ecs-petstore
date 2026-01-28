@@ -51,7 +51,6 @@ env:
 # CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
 jobs:
     Extract-Artifacts-from-Dev-APIM:
-     needs: Set-Variables-to-Extract-Artifacts
      uses: martin2176/ecs-apim-workflows/.github/workflows/extract-from-dev-apim.yml@main
      with:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
