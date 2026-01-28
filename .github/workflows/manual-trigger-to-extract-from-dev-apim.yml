@@ -51,6 +51,7 @@ env:
 # CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
 jobs:
     Set-Variables-to-Extract-Artifacts:
+     if ${{ !always }}
      name: Set-Variables-to-Extract-Artifacts
      runs-on: ubuntu-latest
      steps:
@@ -63,6 +64,7 @@ jobs:
       BASE_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ steps.set-variables.outputs.HEAD_BRANCH_FOR_PR }}
     Print-User-Selections:
+     if ${{ !always }}
      needs: Set-Variables-to-Extract-Artifacts
      name: Print-User-Selections
      runs-on: ubuntu-latest
@@ -84,8 +86,8 @@ jobs:
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
       REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
-      BASE_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.BASE_BRANCH_FOR_PR }}
-      HEAD_BRANCH_FOR_PR: ${{ needs.Set-Variables-to-Extract-Artifacts.outputs.HEAD_BRANCH_FOR_PR }}
+      BASE_BRANCH_FOR_PR: main
+      HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
      secrets: inherit
