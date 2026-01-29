@@ -4,7 +4,7 @@ run-name: Manual-Trigger-To-Publish-to-Test-APIM
 on:
   workflow_dispatch:
     inputs:
-      MILESTONE_TITLE:
+     MILESTONE_TITLE:
         description: 'Enter Milestone to deploy.'     
         required: true
         type: string
