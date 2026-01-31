@@ -15,6 +15,9 @@ on:
       default: "main"
       options:
        - "main"
+concurrency:
+ group: prmeerge-trigger-to-publish-to-test-apim-instance
+ cancel-in-progress: false
 permissions:
   contents: write
   id-token: write
