@@ -8,7 +8,7 @@ on:
     paths: 
      - 'apimartifacts/**'
 concurrency:
- group: prmeerge-trigger-to-publish-to-dev-apim-instance
+ group: publish-to-dev-apim-instance
  cancel-in-progress: false
 jobs:
     Prerequisite-Check-and-Tag-Commit:
