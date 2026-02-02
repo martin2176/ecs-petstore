@@ -6,7 +6,7 @@ on:
     inputs:
       API_MANAGEMENT_ENVIRONMENT:
         required: true
-        type: env
+        type: string
 jobs:
     callworkflow:
      uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
