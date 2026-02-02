@@ -1,0 +1,14 @@
+name: callingworkflow
+run-name: callingworkflow
+#martin francis kallukalam
+on:
+  workflow_dispatch:
+    inputs:
+      API_MANAGEMENT_ENVIRONMENT:
+        required: true
+        type: env
+jobs:
+    callworkflow:
+     uses: martin2176/ecs-apim-workflows/.github/workflows/reusableworkflow.yml@main
+     with:
+      API_MANAGEMENT_ENVIRONMENT: dev
