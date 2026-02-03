@@ -24,6 +24,15 @@ permissions:
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
+    Wait-For-Approval:
+     name: Wait-For-Approval
+     environment: test_approval
+     runs-on: ubuntu-latest
+     steps:
+      - name: Approval
+        id: approval
+        run: |
+         echo "Approved"     
     Publish-Artifacts-to-Test-APIM:
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-test-matrix-controller.yml@main
      with:
