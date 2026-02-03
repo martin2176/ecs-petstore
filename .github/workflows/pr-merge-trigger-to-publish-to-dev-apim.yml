@@ -10,6 +10,9 @@ on:
 concurrency:
  group: publish-to-dev-apim-instance
  cancel-in-progress: false
+permissions:
+  contents: write
+  id-token: write
 jobs:
     Prerequisite-Check-and-Tag-Commit:
      if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
