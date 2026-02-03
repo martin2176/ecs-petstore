@@ -25,7 +25,6 @@ env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
     Publish-Artifacts-to-Test-APIM:
-     needs: Wait-For-Approval
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-test-matrix-controller.yml@main
      with:
       MILESTONE_TITLE: ${{ inputs.MILESTONE_TITLE }}
