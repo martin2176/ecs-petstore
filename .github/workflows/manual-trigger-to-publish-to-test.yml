@@ -29,4 +29,6 @@ jobs:
      with:
       MILESTONE_TITLE: ${{ inputs.MILESTONE_TITLE }}
       API_MANAGEMENT_ENVIRONMENT: test
-      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}  
+      BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
+     secrets:
+      inherit
