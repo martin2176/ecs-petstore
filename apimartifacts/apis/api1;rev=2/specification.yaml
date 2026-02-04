@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: api16
+  title: api1
   description: "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)"
   termsOfService: http://swagger.io/terms/
   contact:
@@ -15,8 +15,6 @@ servers:
 paths:
   /pet:
     put:
-      tags:
-        - pet
       summary: Update an existing pet
       description: Update an existing pet by Id
       operationId: updatePet
@@ -92,8 +90,6 @@ paths:
         '405':
           description: Validation exception
     post:
-      tags:
-        - pet
       summary: Add a new pet to the store
       description: Add a new pet to the store
       operationId: addPet
@@ -166,8 +162,6 @@ paths:
           description: Invalid input
   /pet/findByStatus:
     get:
-      tags:
-        - pet
       summary: Finds Pets by status
       description: Multiple status values can be provided with comma separated strings
       operationId: findPetsByStatus
@@ -213,8 +207,6 @@ paths:
           description: Invalid status value
   /pet/findByTags:
     get:
-      tags:
-        - pet
       summary: Finds Pets by tags
       description: 'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.'
       operationId: findPetsByTags
@@ -257,8 +249,6 @@ paths:
           description: Invalid tag value
   '/pet/{petId}':
     get:
-      tags:
-        - pet
       summary: Find pet by ID
       description: Returns a single pet
       operationId: getPetById
@@ -298,8 +288,6 @@ paths:
         '404':
           description: Pet not found
     post:
-      tags:
-        - pet
       summary: Updates a pet in the store with form data
       description: Updates a pet in the store with form data
       operationId: updatePetWithForm
@@ -325,8 +313,6 @@ paths:
         '405':
           description: Invalid input
     delete:
-      tags:
-        - pet
       summary: Deletes a pet
       description: Deletes a pet
       operationId: deletePet
@@ -348,8 +334,6 @@ paths:
           description: Invalid pet value
   '/pet/{petId}/uploadImage':
     post:
-      tags:
-        - pet
       summary: uploads an image
       description: uploads an image
       operationId: uploadFile
@@ -386,8 +370,6 @@ paths:
                 message: string
   /store/inventory:
     get:
-      tags:
-        - store
       summary: Returns pet inventories by status
       description: Returns a map of status codes to quantities
       operationId: getInventory
@@ -403,8 +385,6 @@ paths:
                   format: int32
   /store/order:
     post:
-      tags:
-        - store
       summary: Place an order for a pet
       description: Place a new order in the store
       operationId: placeOrder
@@ -465,8 +445,6 @@ paths:
           description: Invalid input
   '/store/order/{orderId}':
     get:
-      tags:
-        - store
       summary: Find purchase order by ID
       description: For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
       operationId: getOrderById
@@ -501,8 +479,6 @@ paths:
         '404':
           description: Order not found
     delete:
-      tags:
-        - store
       summary: Delete purchase order by ID
       description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
       operationId: deleteOrder
@@ -521,8 +497,6 @@ paths:
           description: Order not found
   /user:
     post:
-      tags:
-        - user
       summary: Create user
       description: This can only be done by the logged in user.
       operationId: createUser
@@ -626,8 +600,6 @@ paths:
               example: <user> <id>10</id> <username>theUser</username> <firstName>John</firstName> <lastName>James</lastName> <email>john@email.com</email> <password>12345</password> <phone>12345</phone> <userStatus>1</userStatus> </user>
   /user/createWithList:
     post:
-      tags:
-        - user
       summary: Creates list of users with given input array
       description: Creates list of users with given input array
       operationId: createUsersWithListInput
@@ -673,8 +645,6 @@ paths:
           description: successful operation
   /user/login:
     get:
-      tags:
-        - user
       summary: Logs user into the system
       description: Logs user into the system
       operationId: loginUser
@@ -716,8 +686,6 @@ paths:
           description: Invalid username/password supplied
   /user/logout:
     get:
-      tags:
-        - user
       summary: Logs out current logged in user session
       description: Logs out current logged in user session
       operationId: logoutUser
@@ -730,8 +698,6 @@ paths:
           description: successful operation
   '/user/{username}':
     get:
-      tags:
-        - user
       summary: Get user by user name
       description: Get user by user name
       operationId: getUserByName
@@ -767,8 +733,6 @@ paths:
         '404':
           description: User not found
     put:
-      tags:
-        - user
       summary: Update user
       description: This can only be done by the logged in user.
       operationId: updateUser
@@ -827,8 +791,6 @@ paths:
         '500':
           description: successful operation
     delete:
-      tags:
-        - user
       summary: Delete user
       description: This can only be done by the logged in user.
       operationId: deleteUser
@@ -1028,16 +990,3 @@ components:
 security:
   - apiKeyHeader: [ ]
   - apiKeyQuery: [ ]
-tags:
-  - name: pet
-    description: Everything about your Pets
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io/
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io/
-  - name: user
-    description: Operations about user
