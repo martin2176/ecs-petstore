@@ -8,5 +8,5 @@ jobs:
      uses: martin2176/ecs-apim-workflows/.github/workflows/msteamsnotification.yml@main
      with:
       CHANNEL_NAME: "PR_APPROVAL_CHANNEL"
-      MESSAGE_TITLE: "hellothere"
-      MESSAGE_BODY: "messagebody"
+      MESSAGE_TITLE: "hellotheretttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+      MESSAGE_BODY: "messagebodytttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttgggggggggggdddddddddddddddddddddddddddddddddddddddddddd"
