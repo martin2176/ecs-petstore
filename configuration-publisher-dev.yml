@@ -1,0 +1,19 @@
+named_values:
+  - name: testSecret
+    properties:
+      displayName: testSecret
+      value: "{#testSecretValue#}"
+  - name: environment
+    properties:
+      displayName: environment
+      value: "development1"
+apis:
+ - name: api
+   properties:
+    path: testdev
+    apiRevision: '1'
+    authenticationSettings: {}
+    description: 'hello there'
+    displayName: hellothereindev
+    format:  openapi+json-link	
+    value: https://petstore3.swagger.io/api/v3/openapi.json
