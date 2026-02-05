@@ -10,7 +10,7 @@ named_values:
 apis:
  - name: api
    properties:
-    path: testdev
+    path: testdev1
     apiRevision: '1'
     authenticationSettings: {}
     description: 'hello there'
