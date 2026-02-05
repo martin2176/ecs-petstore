@@ -39,4 +39,4 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: main
-      REFTOCHECKOUTFOR_PUBLISHERCONFIG: dev
+      BRANCH_FOR_PUBLISHER_CONFIG: main

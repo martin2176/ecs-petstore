@@ -46,7 +46,7 @@ env:
   HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
 #The below values are used in calling the reusable workflow. but not referenced as env variables
 #since with clause doesnt support env variables
-# REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
+# BRANCH_FOR_EXTRACTOR_CONFIG: main
 # API_MANAGEMENT_ENVIRONMENT: dev
 # CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
 jobs:
@@ -56,7 +56,7 @@ jobs:
       EXTRACTOR_OPTION: ${{ inputs.EXTRACTOR_OPTION }} 
       API_SPECIFICATION_FORMAT: ${{ inputs.API_SPECIFICATION_FORMAT }} 
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
-      REFTOCHECKOUTFOR_EXTRACTORCONFIG: dev
+      BRANCH_FOR_EXTRACTOR_CONFIG: main
       BASE_BRANCH_FOR_PR: main
       HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
