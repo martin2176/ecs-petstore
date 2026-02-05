@@ -1,0 +1,30 @@
+apis:
+  - api1
+  - apiName2:
+      operations: []
+      diagnostics:
+        - diagnosticName1
+        - diagnosticName2
+      schemas: []
+      releases:
+        - releaseName1
+backends:
+ - backend1
+namedValues:
+ - test
+ - testsecret
+products: []
+subscriptions: []
+tags:
+ - tag1
+ - tag2
+versionSets: []
+policyFragments:
+ - fragment1
+groups: []
+loggers:
+  - loggerName1
+  - loggerName2
+diagnostics:
+  - diagnosticName1
+  - diagnosticName2
