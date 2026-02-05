@@ -24,6 +24,13 @@ permissions:
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
+    Notify-MS-Teams:
+     name: Notify-MS-Teams
+     uses: martin2176/ecs-apim-workflows/.github/workflows/msteamsnotification.yml@main
+     with:
+      CHANNEL_NAME: "TEST_DEPLOYMENT_CHANNEL"
+      MESSAGE_TITLE: "Deployment waiting for Approval."
+      MESSAGE_BODY: "There is a Deployment to Test APIM Instance waiting for Approval.Access the Workflow at: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     Publish-Artifacts-to-Test-APIM:
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-test-matrix-controller.yml@main
      with:
