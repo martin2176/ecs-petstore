@@ -12,7 +12,6 @@ backends:
  - backend1
 namedValues:
  - test
- - testsecret
  - testsecret1
 products: []
 subscriptions: []
