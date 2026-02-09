@@ -26,6 +26,6 @@ jobs:
           echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting." >> $GITHUB_STEP_SUMMARY
           exit 1
       - name: check-milestone-on-manually-trigerred-pr
-        if: ${{ github.event_name == 'workflow_call') }}
+        if: ${{ github.event_name == 'workflow_call' }}
         run: |
           echo "PR created with milestone."
