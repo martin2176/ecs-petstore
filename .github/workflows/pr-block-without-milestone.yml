@@ -4,7 +4,6 @@ run-name: PRBlock-Without-MileStone
 on:
    pull_request:
     branches-ignore:
-    - main
     - working
     types: [opened, reopened, edited, milestoned, demilestoned,labeled,unlabeled]
     paths: 
