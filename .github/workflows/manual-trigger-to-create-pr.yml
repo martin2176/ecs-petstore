@@ -33,3 +33,5 @@ jobs:
       REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }} 
       BASE_BRANCH_FOR_PR: ${{ inputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ inputs.HEAD_BRANCH_FOR_PR }}
+    GHA-Status-Check-For-MileStone:
+     uses: ./.github/workflows/pr-trigger-to-block-merge-without-milestone.yml
