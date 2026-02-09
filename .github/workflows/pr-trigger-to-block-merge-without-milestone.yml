@@ -1,5 +1,5 @@
-name: PRBlock-Without-MileStone
-run-name: PRBlock-Without-MileStone
+name: PR-Without-MileStone-Block-Merging
+run-name: PR-Without-MileStone-Block-Merging
 #author martin francis kallukalam
 on:
    pull_request:
