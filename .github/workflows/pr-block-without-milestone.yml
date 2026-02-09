@@ -6,7 +6,7 @@ on:
     branches-ignore:
     - main
     - working
-    types: [opened, edited, milestoned, demilestoned]
+    types: [opened, reopened, edited, milestoned, demilestoned,labeled,unlabeled]
     paths: 
      - 'apimartifacts/**'
 concurrency:
