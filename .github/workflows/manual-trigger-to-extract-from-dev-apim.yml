@@ -62,4 +62,4 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
     GHA-Status-Check-For-MileStone:
-     uses: martin2176/ecs-apim-workflows/.github/workflows/pr-trigger-to-block-merge-without-milestone.yml@main
+     uses: ./.github/workflows/pr-trigger-to-block-merge-without-milestone.yml@main
