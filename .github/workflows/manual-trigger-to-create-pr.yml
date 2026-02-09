@@ -34,4 +34,5 @@ jobs:
       BASE_BRANCH_FOR_PR: ${{ inputs.BASE_BRANCH_FOR_PR }}
       HEAD_BRANCH_FOR_PR: ${{ inputs.HEAD_BRANCH_FOR_PR }}
     GHA-Status-Check-For-MileStone:
+     needs: Create-PR-From-Developer-Branch
      uses: ./.github/workflows/pr-trigger-to-block-merge-without-milestone.yml
