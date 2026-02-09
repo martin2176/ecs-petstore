@@ -62,4 +62,5 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
     GHA-Status-Check-For-MileStone:
+     needs: Extract-Artifacts-from-Dev-APIM
      uses: ./.github/workflows/pr-trigger-to-block-merge-without-milestone.yml
