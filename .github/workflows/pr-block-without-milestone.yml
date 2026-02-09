@@ -5,6 +5,8 @@ on:
    pull_request:
     branches-ignore:
     - working
+    branches:
+     - main
     types: [opened, reopened, edited, milestoned, demilestoned,labeled,unlabeled]
     paths: 
      - 'apimartifacts/**'
@@ -14,12 +16,12 @@ concurrency:
 permissions:
   contents: read
 jobs:
-    Check-For-MileStone:
-     name: Check-For-MileStone
+    GHA-Status-Check-For-MileStone:
+     name: GHA-Status-Check-For-MileStone
      runs-on: ubuntu-latest
      steps:
       - name: check-milestone
         if: ${{ github.event.pull_request.milestone == null }}
         run: |
-          echo "Error: Pull Request must have a milestone."
+          echo "Error: Pull Request: ${{ github.event.pull_request.number }} do not have a milestone attached.Close and reopen PR with a milestone or attach a milestone to PR"
           exit 1
