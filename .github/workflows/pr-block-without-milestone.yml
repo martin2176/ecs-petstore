@@ -3,24 +3,26 @@ run-name: PRBlock-Without-MileStone
 #author martin francis kallukalam
 on:
    pull_request:
-    branches-ignore:
-    - main
-    - working
+    branches:
+     - main
     types: [opened, reopened, edited, milestoned, demilestoned,labeled,unlabeled]
     paths: 
      - 'apimartifacts/**'
 concurrency:
  group: prblock-without-milestone
- cancel-in-progress: false
+ cancel-in-progress: true
 permissions:
   contents: read
 jobs:
-    Check-For-MileStone:
-     name: Check-For-MileStone
+    GHA-Status-Check-For-MileStone:
+     name: GHA-Status-Check-For-MileStone
      runs-on: ubuntu-latest
      steps:
       - name: check-milestone
         if: ${{ github.event.pull_request.milestone == null }}
         run: |
-          echo "Error: Pull Request must have a milestone."
+          echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached."
+          echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting."
+          echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached." >> $GITHUB_STEP_SUMMARY
+          echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting." >> $GITHUB_STEP_SUMMARY
           exit 1
