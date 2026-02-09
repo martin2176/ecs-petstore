@@ -17,11 +17,15 @@ jobs:
      name: GHA-Status-Check-For-MileStone
      runs-on: ubuntu-latest
      steps:
-      - name: check-milestone
-        if: ${{ github.event.pull_request.milestone == null }}
+      - name: check-milestone-on-manually-trigerred-pr
+        if: ${{ (github.event.pull_request.milestone == null && github.event_name == 'pull_request') }}
         run: |
           echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached."
           echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting."
           echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached." >> $GITHUB_STEP_SUMMARY
           echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting." >> $GITHUB_STEP_SUMMARY
           exit 1
+      - name: check-milestone-on-manually-trigerred-pr
+        if: ${{ github.event_name == 'workflow_call') }}
+        run: |
+          echo "PR created with milestone."
