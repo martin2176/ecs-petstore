@@ -17,6 +17,13 @@ jobs:
      name: GHA-Status-Check-For-MileStone
      runs-on: ubuntu-latest
      steps:
+      - name: printoutput
+        run: |
+         echo "________________"
+         echo ${{ (github.event.pull_request.milestone }}
+         echo ${{ github.event_name }}
+         echo "________________"
+
       - name: check-milestone-on-manually-trigerred-pr
         if: ${{ (github.event.pull_request.milestone == null && github.event_name == 'pull_request') }}
         run: |
