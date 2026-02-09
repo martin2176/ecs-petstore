@@ -24,7 +24,7 @@ apis:
     value: https://petstore3.swagger.io/api/v3/openapi.json
     
 backends:
- - backend2
+ - name: backend2
    properties:
     url: "https://www.cnn.com"
     type: Single
@@ -33,4 +33,4 @@ backends:
      validateCertificateName: true
     credentials:
      certificate: ["74CF3A4A8209C62C478FBAD9C1FB3012A844D9A1"]
-    certificateIds: ["/subscriptions/db73da55-ad6a-4d59-aeea-bba62c278f2a/resourceGroups/apim/providers/Microsoft.ApiManagement/service/feiaz-apim-test/certificates/testcert"]   
+    certificateIds: ["/subscriptions/db73da55-ad6a-4d59-aeea-bba62c278f2a/resourceGroups/apim/providers/Microsoft.ApiManagement/service/feiaz-apim-test/certificates/testcert"]
