@@ -23,5 +23,6 @@ jobs:
       - name: check-milestone
         if: ${{ github.event.pull_request.milestone == null }}
         run: |
-          echo "Error: Pull Request: ${{ github.event.pull_request.number }} do not have a milestone attached.Close and reopen PR with a milestone or attach a milestone to PR"
+          echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached."
+          echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting."
           exit 1
