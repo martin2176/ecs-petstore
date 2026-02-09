@@ -3,8 +3,6 @@ run-name: PRBlock-Without-MileStone
 #author martin francis kallukalam
 on:
    pull_request:
-    branches-ignore:
-    - working
     branches:
      - main
     types: [opened, reopened, edited, milestoned, demilestoned,labeled,unlabeled]
