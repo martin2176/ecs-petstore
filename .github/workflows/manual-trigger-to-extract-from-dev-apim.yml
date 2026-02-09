@@ -61,3 +61,5 @@ jobs:
       HEAD_BRANCH_FOR_PR: ${{ github.event.inputs.BRANCH_TO_EXTRACT_ARTIFACTS }}
       CONFIGURATION_YAML_PATH: configuration-extractor-dev.yml
       API_MANAGEMENT_ENVIRONMENT: dev
+    GHA-Status-Check-For-MileStone:
+     uses: ./.github/workflows/pr-trigger-to-block-merge-without-milestone.yml
