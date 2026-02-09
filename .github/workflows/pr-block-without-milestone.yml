@@ -23,4 +23,6 @@ jobs:
         run: |
           echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached."
           echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting."
+          echo "PR: ${{ github.event.pull_request.number }} does not have a milestone attached.:thumbsdown:" >> $GITHUB_STEP_SUMMARY
+          echo "Close and reopen PR with a milestone or attach a milestone to PR.Exiting.:thumbsdown:" >> $GITHUB_STEP_SUMMARY
           exit 1
