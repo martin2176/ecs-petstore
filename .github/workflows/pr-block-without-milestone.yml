@@ -1,0 +1,26 @@
+name: PRBlock-Without-MileStone
+run-name: PRBlock-Without-MileStone
+#author martin francis kallukalam
+on:
+   pull_request:
+    branches-ignore:
+    - main
+    - working
+    types: [opened, edited, milestoned, demilestoned]
+    paths: 
+     - 'apimartifacts/**'
+concurrency:
+ group: prblock-without-milestone
+ cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+    Check-For-MileStone:
+     name: Check-For-MileStone
+     runs-on: ubuntu-latest
+     steps:
+      - name: check-milestone
+        if: ${{ github.event.pull_request.milestone == null }}
+        run: |
+          echo "Error: Pull Request must have a milestone."
+          exit 1
