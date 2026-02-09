@@ -10,9 +10,10 @@ apis:
         - releaseName1
 backends:
  - backend1
+ - backend2
 namedValues:
  - test
- - testsecret1
+ - tifsecret1
 products: []
 subscriptions: []
 tags:
@@ -21,6 +22,7 @@ tags:
 versionSets: []
 policyFragments:
  - fragment1
+ - fragment2
 groups: []
 loggers:
   - loggerName1
