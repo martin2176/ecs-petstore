@@ -10,7 +10,7 @@ on:
      - 'apimartifacts/**'
 concurrency:
  group: prblock-without-milestone
- cancel-in-progress: false
+ cancel-in-progress: true
 permissions:
   contents: read
 jobs:
