@@ -1,4 +1,4 @@
-named_values:
+named values:
   - name: testSecret
     properties:
       displayName: testSecret
