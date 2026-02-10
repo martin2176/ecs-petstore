@@ -17,7 +17,7 @@ on:
         options:
         - "main"
       HEAD_BRANCH_FOR_PR:
-        description: 'Enter the head branch (source branch) of PR.'     
+        description: 'Enter the head branch (source branch) of PR. This is the feature/developer branch'     
         required: true
         type: string
 permissions:
