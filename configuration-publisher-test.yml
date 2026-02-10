@@ -11,7 +11,9 @@ named_values:
     properties:
       displayName: tifsecret1
       keyVault:
+       identityClientId: cd0151ca-275c-4b58-b75e-38aebbd1c8b8
        secretIdentifier: "https://feiaz-apim-test.vault.azure.net/secrets/tifsecret1"
+      secret: true
 apis:
  - name: api
    properties:
