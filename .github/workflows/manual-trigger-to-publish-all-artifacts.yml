@@ -37,25 +37,6 @@ permissions:
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
-    Set-CommitID-to-Publish-Artifacts:
-     name: Set-CommitID-to-Publish-Artifacts
-     runs-on: ubuntu-latest
-     steps:
-      - name: Checkout-Artifacts-Branch
-        id: checkout-artifacts-branch
-        uses: actions/checkout@v6
-        with:
-         ref: '${{ inputs.BRANCH_TO_DEPLOY_FROM }}'
-         fetch-tags: 'false'
-      - name: set-commitid
-        id: set-commitid
-        if: ${{ inputs.PUBLISH_ARTIFACTS_CHOICE == 'publish-all-artifacts-in-repo-to-latest-commit' }}
-        run: |
-         echo "COMMITID=${{ inputs.BRANCH_TO_DEPLOY_FROM }}" >> "$GITHUB_OUTPUT"
-         #In case of publishing all artifacts from Branch, the commitid is branch name(main)
-     outputs:
-      COMMITID: ${{ steps.set-commitid.outputs.COMMITID }}
-
     Notify-MS-Teams-Dev-Channel:
      name: Notify-MS-Teams-Dev-Channel
      if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'dev' }}
@@ -84,9 +65,11 @@ jobs:
       MESSAGE_BODY: "There is a Deployment to Prod APIM Instance waiting for Approval.Access the Workflow at: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"      
 
     Publish-All-Artifacts-to-Dev-APIM:
+     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'dev' }}
+     name: Publish-All-Artifacts-to-Dev-APIM
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-dev-apim-all-artifacts.yml@main
      with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
+      COMMITID: ${{ inputs.BRANCH_TO_DEPLOY_FROM }}
       PUBLISH_ARTIFACTS_CHOICE: ${{ inputs.PUBLISH_ARTIFACTS_CHOICE }}
       API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
       CONFIGURATION_YAML_PATH: configuration-publisher-dev.yml
@@ -95,9 +78,11 @@ jobs:
       BRANCH_FOR_PUBLISHER_CONFIG: main
       
     Publish-All-Artifacts-to-Test-APIM:
+     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'test' }}
+     name: Publish-All-Artifacts-to-Test-APIM
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-test-apim-all-artifacts.yml@main
      with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
+      COMMITID: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
       PUBLISH_ARTIFACTS_CHOICE: ${{ inputs.PUBLISH_ARTIFACTS_CHOICE }}
       API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
       CONFIGURATION_YAML_PATH: configuration-publisher-test.yml
@@ -106,9 +91,11 @@ jobs:
       BRANCH_FOR_PUBLISHER_CONFIG: main  
       
     Publish-All-Artifacts-to-Prod-APIM:
+     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'prod' }}
+     name: Publish-All-Artifacts-to-Prod-APIM
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-apim-all-artifacts.yml@main
      with:
-      COMMITID: ${{ needs.Set-CommitID-to-Publish-Artifacts.outputs.COMMITID }}
+      COMMITID: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
       PUBLISH_ARTIFACTS_CHOICE: ${{ inputs.PUBLISH_ARTIFACTS_CHOICE }}
       API_MANAGEMENT_SERVICE_OUTPUT_FOLDER_PATH: apimartifacts
       CONFIGURATION_YAML_PATH: configuration-publisher-prod.yml
