@@ -27,11 +27,11 @@ apis:
 backends:
  - name: backend2
    properties:
-    url: "https://www.cnn.com"
+    url: "https://www.google.com"
     type: Single
     tls:
      validateCertificateChain: true
      validateCertificateName: true
     credentials:
      certificate: ["74CF3A4A8209C62C478FBAD9C1FB3012A844D9A1"]
-     certificateIds: ["/subscriptions/db73da55-ad6a-4d59-aeea-bba62c278f2a/resourceGroups/apim/providers/Microsoft.ApiManagement/service/feiaz-apim-test/certificates/prodcert"]
+     certificateIds: ["/subscriptions/db73da55-ad6a-4d59-aeea-bba62c278f2a/resourceGroups/apim/providers/Microsoft.ApiManagement/service/feiaz-apim-prod/certificates/prodcert"]
