@@ -1,5 +1,5 @@
-name: Manual-Trigger-To-Publish-all-Artifacts
-run-name: Manual-Trigger-To-Publish-all-Artifacts
+name: Manual-Trigger-To-Publish-Specific-Commit
+run-name: Manual-Trigger-To-Publish-Specific-Commit
 #martin francis kallukalam
 #Use this with extreme caution as it will deploy everything in the artifacts repo
 on:
