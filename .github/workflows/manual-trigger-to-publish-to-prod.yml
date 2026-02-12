@@ -26,7 +26,7 @@ env:
 jobs:
     Notify-MS-Teams:
      name: Notify-MS-Teams
-     uses: martin2176/ecs-apim-workflows/.github/workflows/msteamsnotification.yml@main
+     uses: martin2176/ecs-apim-workflows/.github/workflows/msteams-notification.yml@main
      with:
       CHANNEL_NAME: "PROD_DEPLOYMENT_CHANNEL"
       MESSAGE_TITLE: "Deployment waiting for Approval."

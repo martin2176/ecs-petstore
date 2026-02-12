@@ -10,7 +10,6 @@ on:
         type: choice
         options:
         - 'Extract Selected APIM Artifacts'
-#       - 'Extract All APIM Artifacts'
       API_SPECIFICATION_FORMAT:
         description: 'API specification format to extract the API spec'     
         required: true
