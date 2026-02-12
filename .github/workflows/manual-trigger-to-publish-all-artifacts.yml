@@ -37,15 +37,6 @@ permissions:
 env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
-    Notify-MS-Teams-Dev-Channel:
-     name: Notify-MS-Teams-Dev-Channel
-     if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'dev' }}
-     uses: martin2176/ecs-apim-workflows/.github/workflows/msteamsnotification.yml@main
-     with:
-      CHANNEL_NAME: "DEV_DEPLOYMENT_CHANNEL"
-      MESSAGE_TITLE: "Deployment waiting for Approval."
-      MESSAGE_BODY: "There is a Deployment to Dev APIM Instance waiting for Approval.Access the Workflow at: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
     Notify-MS-Teams-Test-Channel:
      name: Notify-MS-Teams-Test-Channel
      if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'test' }}
