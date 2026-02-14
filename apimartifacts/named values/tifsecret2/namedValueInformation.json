@@ -1,0 +1,10 @@
+{
+  "properties": {
+    "displayName": "tifsecret2",
+    "keyVault": {
+      "secretIdentifier": "https://feiaz-apim-dev.vault.azure.net/secrets/tifsecret2"
+    },
+    "secret": true,
+    "tags": []
+  }
+}
