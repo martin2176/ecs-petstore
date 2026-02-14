@@ -13,6 +13,12 @@ namedValues:
       keyVault:
        secretIdentifier: "https://feiaz-apim-test.vault.azure.net/secrets/tifsecret1"
       secret: true
+  - name: tifsecret2
+    properties:
+      displayName: tifsecret2
+      keyVault:
+       secretIdentifier: "https://feiaz-apim-test.vault.azure.net/secrets/tifsecret2"
+      secret: true      
 apis:
  - name: api
    properties:

@@ -14,6 +14,7 @@ backends:
 namedValues:
  - test
  - tifsecret1
+ - tifsecret2 
 products: []
 subscriptions: []
 tags:
