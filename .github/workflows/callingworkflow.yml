@@ -1,0 +1,11 @@
+name: callingworkflow
+run-name: callingworkflow
+#martin francis kallukalam
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: [closed]
+jobs:
+    callworkflow:
+     uses: martin2176/ecs-apim-workflows/.github/workflows/check-actor-team.yml@main
