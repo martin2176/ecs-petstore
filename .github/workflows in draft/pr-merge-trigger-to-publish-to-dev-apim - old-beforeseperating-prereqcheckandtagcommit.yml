@@ -14,10 +14,10 @@ permissions:
   contents: write
   id-token: write
 jobs:
-    Prerequisite-Check:
+    Prerequisite-Check-and-Tag-Commit:
      if:  ${{ (github.event_name == 'pull_request' && github.event.pull_request.merged == true) }}
-     name: Prerequisite-Check
-     uses: martin2176/ecs-apim-workflows/.github/workflows/prereqcheck-before-publish-to-dev-apim-on-pr-merge-trigger.yml@main
+     name: Prerequisite-Check-and-Tag-Commit
+     uses: martin2176/ecs-apim-workflows/.github/workflows/prereq-check-and-tag-commit.yml@main
      with:
       PR_NUMBER: ${{ github.event.pull_request.number }}
       PR_MILESTONE_NUMBER: ${{ github.event.pull_request.milestone.number }}
@@ -27,10 +27,10 @@ jobs:
       PR_STATE: ${{ github.event.pull_request.state }}
       PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
       PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
-   
+
     Publish-Artifacts-to-Dev-APIM:
      name: Publish-Artifacts-to-Dev-APIM
-     needs: Prerequisite-Check
+     needs: Prerequisite-Check-and-Tag-Commit
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-dev-apim.yml@main
      with:
       COMMITID: ${{ github.event.pull_request.merge_commit_sha }}
@@ -40,12 +40,3 @@ jobs:
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: main
       BRANCH_FOR_PUBLISHER_CONFIG: main
-      
-    Tag-Commit-On-Successful-Publish:
-     name: Tag-Commit-On-Successful-Publish
-     needs: [Prerequisite-Check, Publish-Artifacts-to-Dev-APIM]
-     uses: martin2176/ecs-apim-workflows/.github/workflows/tag-commit-on-successful-publish.yml@main
-     with:
-      PR_NUMBER: ${{ github.event.pull_request.number }}
-      PR_MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
-      PR_MERGE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
