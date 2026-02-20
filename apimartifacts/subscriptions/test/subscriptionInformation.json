@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "Product product1 subscription",
+    "scope": "/products/product1",
+    "allowTracing": false,
+    "state": "active"
+  }
+}
