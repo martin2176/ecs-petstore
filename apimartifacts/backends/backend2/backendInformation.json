@@ -16,6 +16,6 @@
       "validateCertificateName": true
     },
     "type": "Single",
-    "url": "https://httpbin.com"
+    "url": "https://httpbin.org"
   }
 }
