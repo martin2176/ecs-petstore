@@ -4,6 +4,7 @@
       "header": {},
       "query": {}
     },
+    "description": "version1",
     "protocol": "http",
     "tls": {
       "validateCertificateChain": true,
