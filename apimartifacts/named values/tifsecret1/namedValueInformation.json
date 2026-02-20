@@ -5,6 +5,8 @@
       "secretIdentifier": "https://feiaz-apim-dev.vault.azure.net/secrets/tifsecret1"
     },
     "secret": true,
-    "tags": []
+    "tags": [
+      "tif"
+    ]
   }
 }
