@@ -19,9 +19,9 @@ on:
       description: |
        Enter Name of API to create a backup Revision.
        Leave as default(null) if you are not deploying an API in which case a backup revision will not be created.  
-      required: true
+      required: false
       type: string
-      default: ''
+
 concurrency:
  group: publish-to-prod-apim-instance
  cancel-in-progress: false
