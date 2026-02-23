@@ -49,7 +49,7 @@ jobs:
 
     Publish-Artifacts-to-Prod-APIM:
      if: false
-     needs: Create-Backup-Revision-and-Delete-Older
+     needs: Create-Backup-Revision-and-Delete-Older-Revisions
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-matrix-controller.yml@main
      with:
       MILESTONE_TITLE: ${{ inputs.MILESTONE_TITLE }}
