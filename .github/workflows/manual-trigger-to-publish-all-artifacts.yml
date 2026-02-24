@@ -28,6 +28,12 @@ on:
        - "dev"
        - "test"
        - "prod"
+     API_NAME_FOR_REVISIONING:
+      description: |
+       Only Applicable for Prod. Enter Name of API to create a backup Revision.
+       Leave as default(null) if you are not deploying an API or you are not deploying into Prod.  
+      required: false
+      type: string
 concurrency:
  group: publish-to-${{ inputs.API_MANAGEMENT_ENVIRONMENT }}-apim-instance
  cancel-in-progress: false
