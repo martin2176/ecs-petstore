@@ -32,7 +32,6 @@ env:
   APIOPS_WORKFLOW_REPO: 'martin2176/ecs-apim-workflows'
 jobs:
     Notify-MS-Teams:
-     if: false
      name: Notify-MS-Teams
      uses: martin2176/ecs-apim-workflows/.github/workflows/msteams-notification.yml@main
      with:
@@ -48,7 +47,6 @@ jobs:
       API_NAME_FOR_REVISIONING: ${{ inputs.API_NAME_FOR_REVISIONING }}
 
     Publish-Artifacts-to-Prod-APIM:
-     if: false
      needs: Create-Backup-Revision-and-Delete-Older-Revisions
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-matrix-controller.yml@main
      with:
