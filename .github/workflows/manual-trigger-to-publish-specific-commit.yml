@@ -1,7 +1,9 @@
 name: Manual-Trigger-To-Publish-Specific-Commit
 run-name: Manual-Trigger-To-Publish-Specific-Commit
 #martin francis kallukalam
-#Use this with extreme caution as it will deploy everything in the artifacts repo
+#This will deploy artifacts which are delta between the specified commit and the previous commits
+#This should not be used as a regular deployment mechanism
+#This should only be used to redeploy any specific commit
 on:
   workflow_dispatch:
     inputs:
@@ -32,6 +34,13 @@ on:
        - "dev"
        - "test"
        - "prod"
+     REFERENCE_NUMBER:
+      description: |
+       Reference Number for this Deployment.
+       This will be used in Job Summary. If Deploying to Prod, this will be used to name API Revision as well.
+      required: true
+      type: string
+      default: 'RITM100000'       
      API_NAME_FOR_REVISIONING:
       description: |
        Only Applicable for Prod. Enter Name of API to create a backup Revision.
@@ -77,6 +86,7 @@ jobs:
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
       BRANCH_FOR_PUBLISHER_CONFIG: main
+      REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }}
       
     Publish-All-Artifacts-to-Test-APIM:
      if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'test' }}
@@ -89,7 +99,8 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-test.yml
       API_MANAGEMENT_ENVIRONMENT: test
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
-      BRANCH_FOR_PUBLISHER_CONFIG: main  
+      BRANCH_FOR_PUBLISHER_CONFIG: main
+      REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }}
 
     Create-Backup-Revision-and-Delete-Older-Revisions:
      if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'prod' }}
@@ -111,4 +122,5 @@ jobs:
       CONFIGURATION_YAML_PATH: configuration-publisher-prod.yml
       API_MANAGEMENT_ENVIRONMENT: prod
       BRANCH_TO_DEPLOY_FROM: ${{ inputs.BRANCH_TO_DEPLOY_FROM }} 
-      BRANCH_FOR_PUBLISHER_CONFIG: main  
+      BRANCH_FOR_PUBLISHER_CONFIG: main
+      REFERENCE_NUMBER: ${{ inputs.REFERENCE_NUMBER }}
