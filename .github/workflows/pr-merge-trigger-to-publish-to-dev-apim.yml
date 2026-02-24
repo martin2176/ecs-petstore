@@ -20,8 +20,8 @@ jobs:
      uses: martin2176/ecs-apim-workflows/.github/workflows/prereqcheck-before-publish-to-dev-apim-on-pr-merge-trigger.yml@main
      with:
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      PR_MILESTONE_NUMBER: ${{ github.event.pull_request.milestone.number }}
-      PR_MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
+      MILESTONE_NUMBER: ${{ github.event.pull_request.milestone.number }}
+      MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
       PR_MERGE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
       PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
       PR_STATE: ${{ github.event.pull_request.state }}
@@ -40,6 +40,7 @@ jobs:
       API_MANAGEMENT_ENVIRONMENT: dev
       BRANCH_TO_DEPLOY_FROM: main
       BRANCH_FOR_PUBLISHER_CONFIG: main
+      MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
       
     Tag-Commit-On-Successful-Publish:
      name: Tag-Commit-On-Successful-Publish
@@ -47,5 +48,5 @@ jobs:
      uses: martin2176/ecs-apim-workflows/.github/workflows/tag-commit-on-successful-publish.yml@main
      with:
       PR_NUMBER: ${{ github.event.pull_request.number }}
-      PR_MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
+      MILESTONE_TITLE: ${{ github.event.pull_request.milestone.title }}
       PR_MERGE_COMMIT_SHA: ${{ github.event.pull_request.merge_commit_sha }}
