@@ -28,13 +28,13 @@ on:
        - "dev"
        - "test"
        - "prod"
-      REFERENCE_NUMBER:
-       description: |
-        Reference Number for this Deployment.
-        This will be used in Job Summary. If Deploying to Prod, this will be used to name API Revision as well.
-       required: true
-       type: string
-       default: 'RITM100000'
+     REFERENCE_NUMBER:
+      description: |
+       Reference Number for this Deployment.
+       This will be used in Job Summary. If Deploying to Prod, this will be used to name API Revision as well.
+      required: true
+      type: string
+      default: 'RITM100000'
      API_NAME_FOR_REVISIONING:
       description: |
        This is only Applicable for Prod. Enter Name of the API to create a backup Revision.
