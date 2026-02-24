@@ -85,7 +85,7 @@ jobs:
      if: ${{ inputs.API_MANAGEMENT_ENVIRONMENT  == 'prod' }}
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-api-revision-management.yml@main
      with:
-      REVISION_ID: ALLARTIFACTS
+      REVISION_ID: allartifacts
       API_MANAGEMENT_ENVIRONMENT: prod
       API_NAME_FOR_REVISIONING: ${{ inputs.API_NAME_FOR_REVISIONING }}
       
