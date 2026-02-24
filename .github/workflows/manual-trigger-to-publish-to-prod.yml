@@ -42,7 +42,7 @@ jobs:
     Create-Backup-Revision-and-Delete-Older-Revisions:
      uses: martin2176/ecs-apim-workflows/.github/workflows/publish-to-prod-api-revision-management.yml@main
      with:
-      MILESTONE_TITLE: ${{ inputs.MILESTONE_TITLE }}
+      REVISION_ID: ${{ inputs.MILESTONE_TITLE }}
       API_MANAGEMENT_ENVIRONMENT: prod
       API_NAME_FOR_REVISIONING: ${{ inputs.API_NAME_FOR_REVISIONING }}
 
