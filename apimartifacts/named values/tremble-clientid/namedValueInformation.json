@@ -1,0 +1,8 @@
+{
+  "properties": {
+    "displayName": "tremble-clientid",
+    "secret": false,
+    "tags": [],
+    "value": "textvalue"
+  }
+}
