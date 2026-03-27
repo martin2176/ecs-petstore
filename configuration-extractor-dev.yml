@@ -1,9 +1,9 @@
-apis:
-  - api1
+apis: []
 versionSets: []
 workspaces: []
 backends: []
-namedValues: []
+namedValues:
+ - tremble-clientid
 products: []
 subscriptions: []
 tags: []
